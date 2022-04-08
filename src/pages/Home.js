@@ -1,5 +1,4 @@
-import { Button, ButtonGroup, Flex, Input, Text, Spinner, background } from '@chakra-ui/react';
-import { ArrowRightIcon, SpinnerIcon } from '@chakra-ui/icons';
+import { Button, Flex, Input, Text, Spinner } from '@chakra-ui/react';
 import { useContext } from 'react';
 import { QuestionsContext } from '../contexts/questions';
 import axios from 'axios';
@@ -7,15 +6,17 @@ import { useNavigate } from 'react-router-dom';
 
 function Home() {
     const navigate = useNavigate();
-    const { questions, setQuestions } = useContext(QuestionsContext);
+    const { setQuestions } = useContext(QuestionsContext);
 
     const findQuestions = () => {
+        const spinner = document.querySelector(".spinner");
+        spinner.style.display = "block"
         const inputValue = getNumberOfInput();
 
         axios.get(`https://opentdb.com/api.php?amount=${inputValue}.`)
             .then(({data}) => {
                 setQuestions(data.results);
-                navigate("/questionary");
+                navigate("/continue");
             }).catch(e => console.log(e));
 
     }
@@ -37,39 +38,59 @@ function Home() {
                 <Flex 
                     justify='center'
                     direction="column"
+                    backgroundColor="#fff"
+                    borderRadius="10"
+                    boxShadow="box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;"
                 >
                     <Text
-                        fontSize="22px"
-                        fontFamily="sans-serif"
+                        fontSize="30px"
+                        fontFamily="Poppins"
+                        color="#2b4242"
+                        marginBottom="10px"
                     >
-                        Quantas Perguntas você quer responder ?
+                        How many questions do you want to answer ?
                     </Text>
                     <Input
                         placeholder="Exemplo: 12"
-                        height="25px"
+                        height="30px"
+                        paddingLeft="25px"
+                        borderRadius="4"
                         id='number-questions'
+                        border="1px solid #828383"
+                        type="number"
+
+                        _focus={{
+                            boxShadow: "0 0 0 0",
+                            outline: "0",
+                        }}
                     />
                     <Button 
                         colorScheme='blue'
-                        background="#385898"
+                        background="#606a6a"
                         color="white"
-                        height='34px'
-                        mt="20px"
+                        height='40px'
+                        mt="30px"
                         border='none'
                         borderRadius="3px"
                         variant="outline"
                         cursor="pointer"
-                        rightIcon={<ArrowRightIcon/>}
+                        className="buttonNext"
                         onClick={findQuestions}
 
                         _hover={{
-                            background: "white",
-                            border: "1px solid #385898",
-                            color: "#385898",
-                            transition: "800ms"
+                            background: "#444c4c",
+                            transition: "300ms"
                         }}
                     >
-                        Continuar
+                        NEXT
+                        <Spinner 
+                            width="20px"
+                            height="20px"
+                            ml="15px"
+                            display="none"
+                            color="#fff"
+                        className="spinner"
+                        />
                     </Button>
                 </Flex>
             </Flex>

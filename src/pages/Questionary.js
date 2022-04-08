@@ -1,3 +1,4 @@
+import { Box, Text } from "@chakra-ui/react";
 import { useContext } from "react";
 import {
     QuestionsContext
@@ -8,8 +9,20 @@ function Questionary() {
 
     return(
         <>
-            <h1>Questionary</h1>
-            {questions.map(question => <span>{question.category}</span>)}
+            <Box
+                width="60%"
+                height="100vh"
+                margin="auto"
+                background=""   
+            >
+                <Text
+                    fontSize="30px"
+                >
+                    Quantos anos vc tem quando soube que era uma pessoa ?
+                </Text>
+
+                
+            </Box>
         </>
     );
 }
