@@ -1,11 +1,22 @@
-import { Button, Flex, Input, Text, Spinner } from '@chakra-ui/react';
+import { Button,
+    Flex, 
+    Input, 
+    Text, 
+    Spinner,
+    Alert,
+    AlertIcon,
+    Box,
+    Link
+} from '@chakra-ui/react';
 import { useContext } from 'react';
 import { QuestionsContext } from '../contexts/questions';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { SendsUserContext } from '../contexts/sendsUser';
 
 function Home() {
     const navigate = useNavigate();
+    const { msg } = useContext(SendsUserContext)
     const { setQuestions } = useContext(QuestionsContext);
 
     const findQuestions = () => {
@@ -13,9 +24,9 @@ function Home() {
         spinner.style.display = "block"
         const inputValue = getNumberOfInput();
 
-        axios.get(`https://opentdb.com/api.php?amount=${inputValue}.`)
+        axios.get(`https://opentdb.com/api.php?amount=${inputValue}&difficulty=hard&type=boolean`)
             .then(({data}) => {
-                setQuestions(data.results);
+                setQuestions(data.results)
                 navigate("/continue");
             }).catch(e => console.log(e));
 
@@ -42,6 +53,25 @@ function Home() {
                     borderRadius="10"
                     boxShadow="box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;"
                 >
+                    
+                <Alert status='info'
+                    mb="30px"
+                >
+                        <AlertIcon
+                            width="30px"
+                            height="30px"
+                            color="royalblue"
+                        />
+                        <Text
+                            fontFamily="Poppins"
+                            fontSize="20px"
+                            ml="5px"
+                        >                            
+                            Enter a number less than or equal to 50
+                        </Text>
+                </Alert>
+                    
+                     
                     <Text
                         fontSize="30px"
                         fontFamily="Poppins"
@@ -64,7 +94,7 @@ function Home() {
                             outline: "0",
                         }}
                     />
-                    <Button 
+                    <Button
                         colorScheme='blue'
                         background="#606a6a"
                         color="white"
@@ -76,14 +106,13 @@ function Home() {
                         cursor="pointer"
                         className="buttonNext"
                         onClick={findQuestions}
-
                         _hover={{
                             background: "#444c4c",
                             transition: "300ms"
                         }}
                     >
                         NEXT
-                        <Spinner 
+                        <Spinner
                             width="20px"
                             height="20px"
                             ml="15px"
@@ -92,6 +121,37 @@ function Home() {
                         className="spinner"
                         />
                     </Button>
+
+                    <Text
+                        mt="30px"
+                        fontSize="25px"
+                        fontFamily="Poppins"
+                        color="#2b4242"
+                    >
+                        Load questionary
+                    </Text>
+
+                    <Flex
+                        border="1px solid #2b4242"
+                        padding="15px"
+                        borderRadius="4px"
+                        align="center"
+                    >
+                        <Text
+                            fontSize="17px"
+                            fontFamily="Poppins"
+                            fontWeight="bold"
+                        >
+                            <Link href="#"
+                                color="royalblue"
+                                textDecoration="none"
+                                fontWeight="bolder"
+                            >
+                                Last Questionary
+                            </Link>
+                        </Text>
+                    </Flex>
+                    
                 </Flex>
             </Flex>
         </>

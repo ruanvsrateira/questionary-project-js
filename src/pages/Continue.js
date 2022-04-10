@@ -30,9 +30,15 @@ function Continue() {
                         borderRadius="4px"
                         color="white"
                         fontSize="17px"
+                        cursor="pointer"
 
                         onClick={() => {
                             navigate("/questionary")
+                        }}
+
+                        _hover={{
+                            background: "#444c4c",
+                            transition: "300ms"
                         }}
                     >Start</Button>
                     <Button
@@ -44,6 +50,8 @@ function Continue() {
                         color="#606a6a"
                         fontSize="17px"
                         leftIcon={<ArrowBackIcon />}
+                        cursor="pointer"
+                        
                         onClick={() => {
                             navigate("/")
                         }}
