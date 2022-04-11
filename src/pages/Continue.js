@@ -25,7 +25,7 @@ function Continue() {
                     <Button
                         width="200px"
                         height="34px"
-                        background="#606a6a"
+                        background="#4169e1"
                         border="none"
                         borderRadius="4px"
                         color="white"
@@ -37,7 +37,7 @@ function Continue() {
                         }}
 
                         _hover={{
-                            background: "#444c4c",
+                            background: "#2451d7",
                             transition: "300ms"
                         }}
                     >Start</Button>

@@ -2,27 +2,40 @@ import { Button,
     Flex, 
     Input, 
     Text, 
-    Spinner,
     Alert,
     AlertIcon,
+    Link,
     Box,
-    Link
 } from '@chakra-ui/react';
+import { SearchIcon } from '@chakra-ui/icons';
+import { BiCheck, BiBlock } from 'react-icons/bi'
 import { useContext } from 'react';
 import { QuestionsContext } from '../contexts/questions';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { SendsUserContext } from '../contexts/sendsUser';
+import { useNavigate } from 'react-router-dom'; 
+import { injectStyle } from "react-toastify/dist/inject-style";
+import { ToastContainer, toast } from 'react-toastify';
+
+if(window !== "undefined") {
+    injectStyle();
+}
 
 function Home() {
     const navigate = useNavigate();
-    const { msg } = useContext(SendsUserContext)
     const { setQuestions } = useContext(QuestionsContext);
 
     const findQuestions = () => {
-        const spinner = document.querySelector(".spinner");
-        spinner.style.display = "block"
         const inputValue = getNumberOfInput();
+
+        if(!inputValue) {
+            toast.error("The field is invalid", { position: toast.POSITION.TOP_LEFT });
+            return;
+        }
+
+        if(inputValue > 50 || inputValue <= 0) {
+            toast.error("The number must be less than 50 and greater than 0", { position: toast.POSITION.TOP_LEFT })
+            return;
+        }
 
         axios.get(`https://opentdb.com/api.php?amount=${inputValue}&difficulty=hard&type=boolean`)
             .then(({data}) => {
@@ -36,10 +49,13 @@ function Home() {
         const valueInput = document.getElementById("number-questions").value;
 
         return valueInput;
-    }
+    } 
+
 
     return(
         <>
+
+            <ToastContainer />
             <Flex
                 justify="center"
                 align="center"
@@ -80,47 +96,37 @@ function Home() {
                     >
                         How many questions do you want to answer ?
                     </Text>
-                    <Input
-                        placeholder="Exemplo: 12"
-                        height="30px"
-                        paddingLeft="25px"
-                        borderRadius="4"
-                        id='number-questions'
-                        border="1px solid #828383"
-                        type="number"
-
-                        _focus={{
-                            boxShadow: "0 0 0 0",
-                            outline: "0",
-                        }}
-                    />
-                    <Button
-                        colorScheme='blue'
-                        background="#606a6a"
-                        color="white"
-                        height='40px'
-                        mt="30px"
-                        border='none'
-                        borderRadius="3px"
-                        variant="outline"
-                        cursor="pointer"
-                        className="buttonNext"
-                        onClick={findQuestions}
-                        _hover={{
-                            background: "#444c4c",
-                            transition: "300ms"
-                        }}
-                    >
-                        NEXT
-                        <Spinner
-                            width="20px"
-                            height="20px"
-                            ml="15px"
-                            display="none"
-                            color="#fff"
-                        className="spinner"
+                    <Flex>
+                        <Input
+                            placeholder="Exemplo: 12"
+                            height="30px"
+                            width="90%"
+                            paddingLeft="25px"
+                            borderRadius="4px 0px 0px 4px"
+                            id='number-questions'
+                            border="1px solid #828383"
+                            type="number"
+                            _focus={{
+                                boxShadow: "0 0 0 0",
+                                outline: "0",
+                            }}
                         />
-                    </Button>
+                        <Button
+                            className="buttonSearch"
+                            background="royalblue"
+                            color="#fff"
+                            fontSize="15px"
+                            border="none"
+                            paddingX="10px"
+                            borderRadius="0px 4px 4px 0px"
+                            cursor="pointer"
+                            rightIcon={<SearchIcon />}
+                            onClick={findQuestions}
+                        >
+                            Search
+                        </Button>
+                    </Flex>
+                    
 
                     <Text
                         mt="30px"
@@ -132,17 +138,18 @@ function Home() {
                     </Text>
 
                     <Flex
-                        border="1px solid #2b4242"
+                        border="1px solid #7d7e7e"
                         padding="15px"
                         borderRadius="4px"
                         align="center"
+                        boxShadow="rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;"
                     >
                         <Text
                             fontSize="17px"
                             fontFamily="Poppins"
                             fontWeight="bold"
                         >
-                            <Link href="#"
+                            <Link href="/lastQuestionary"
                                 color="royalblue"
                                 textDecoration="none"
                                 fontWeight="bolder"
@@ -150,6 +157,31 @@ function Home() {
                                 Last Questionary
                             </Link>
                         </Text>
+                        <Flex
+                            ml="20px"
+                            width="60px"
+                            justify="space-around"
+                        >
+                            <Flex
+                                align="center"
+                                fontSize="20px"
+                                color="#198754"
+                            >
+                                {localStorage.getItem("acertos")}
+                                <BiCheck />
+                            </Flex>
+
+                            <Flex
+                                align="center"
+                                fontSize="20px"
+                                color="#dc3545"
+                            >
+                                {localStorage.getItem("erros")}
+                                <BiBlock 
+                                    fontSize="18px"
+                                />    
+                            </Flex>
+                        </Flex>
                     </Flex>
                     
                 </Flex>

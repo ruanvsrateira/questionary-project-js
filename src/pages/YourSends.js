@@ -52,10 +52,9 @@ function YourSends() {
                     width="160px"
                     margin="auto"
                     height="40px"
-                    background="#2b4242"
+                    background="#4169e1"
                     color="#fff"
                     fontSize="15px"
-                    fontFamily="Poppins"
                     border="none"
                     borderRadius="3px"
                     mt="30px"
@@ -72,16 +71,15 @@ function YourSends() {
                     width="160px"
                     margin="auto"
                     height="40px"
-                    background="#2b4242"
+                    background="#4169e1"
                     color="#fff"
                     fontSize="15px"
-                    fontFamily="Poppins"
                     border="none"
                     borderRadius="3px"
                     mt="10px"
                     cursor="pointer"
                     onClick={() => {
-                        navigate("/")
+                        navigate("/lastQuestionary")
                     }}
                 >
                     Show results

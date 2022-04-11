@@ -6,6 +6,7 @@ import SendsUserProvider from './contexts/sendsUser';
 import Questionary from './pages/Questionary';
 import Continue from './pages/Continue';
 import YourSends from './pages/YourSends';
+import LastQuestionary from './pages/LastQuestionary';
 
 function MainRoutes() {
     return(
@@ -16,6 +17,7 @@ function MainRoutes() {
                     <Route path="/continue" element={<Continue />} />
                     <Route path="/questionary" element={<Questionary />} />
                     <Route path="/yourSends" element={<YourSends />} />
+                    <Route path="/lastQuestionary" element={<LastQuestionary />} />
                 </Routes>
             </SendsUserProvider>
         </QuestionsProvider>

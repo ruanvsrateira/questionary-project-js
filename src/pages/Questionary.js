@@ -24,6 +24,9 @@ function Questionary() {
             const box = document.querySelector(counterClass);
             const inputTrue = box.querySelector(".true");
             const inputFalse = box.querySelector(".false");
+            let counterKey = 0;
+            let acertos = 0;
+            let erros = 0;
 
             if(inputTrue.checked && inputFalse.checked) {
                 sendsUser.push("Not")
@@ -35,15 +38,24 @@ function Questionary() {
                 sendsUser.push("Not")
             }
 
-            localStorage.setItem("questionary", {
-                questions: [
-                    questions.question
-                ],
-                
-                your_sends: [
-                    ...sendsUser
-                ]
+            if(localStorage.getItem("questionary")) {
+                localStorage.removeItem("questionary");
+            }
+
+            questions.map(q => {
+                if(sendsUser[counterKey++] == q.correct_answer) {
+                    return acertos++     
+                } else {
+                    return erros++
+                }  
             });
+
+
+            console.log("questions", JSON.stringify(questions));
+            localStorage.setItem("acertos", JSON.stringify(acertos));
+            localStorage.setItem("erros", JSON.stringify(erros));
+            localStorage.setItem("questions", JSON.stringify(questions));
+            localStorage.setItem("sendsUser", JSON.stringify(sendsUser));
 
         }
 
@@ -56,8 +68,7 @@ function Questionary() {
         <>
             <Box
                 width="60%"
-                height="100vh"
-                margin="auto"
+                margin="50px auto"
                 background=""   
             >
                     {questions.map(question => {
@@ -70,23 +81,22 @@ function Questionary() {
                                 <Text
                                     fontSize="25px"
                                     fontFamily="Poppins"
-                                    color="#2b4242"
+                                    color="#121212"
                                 >
                                     {counter++} - {question.question}
                                 </Text>
                                 <br />
-
-                                
-                                    <Flex
-                                    
-                                    >
+                                    <Flex>
                                         <Flex
                                             width="60px"
                                             align="center"
                                             justify="space-around"
                                         >
                                             <input type="checkbox" className="true" value="true"/>
-                                            <Text>True</Text>
+                                            <Text
+                                                color="#121212"
+                                                fontFamily="Poppins"
+                                            >True</Text>
                                         </Flex>
                                         <Flex
                                             width="60px"
@@ -94,22 +104,27 @@ function Questionary() {
                                             justify="space-around"
                                         >
                                             <input type="checkbox" className="false" value="false"/>
-                                            <Text>False</Text>
+                                            <Text
+                                                fontFamily="Poppins"
+                                                color="#121212"
+                                            >False</Text>
                                         </Flex>
                                     </Flex>
                                 
                              
-                                <br /><br />
+                                <br />
+                                <hr />
+                                <br />
                             </Box>
                         );
                     })}
                     <Button
                         type="submit"
                         width="200px"
-                        height="40px"
-                        background="#606a6a"
+                        height="35px"
+                        background="#4169e1"
                         border="none"
-                        fontFamily="Poppins"
+                        fontFamily="Arial"
                         borderRadius="4px"
                         color="#fff"
                         fontSize="17px"
@@ -117,7 +132,7 @@ function Questionary() {
                         onClick={() => {setSends(counter)}}
 
                         _hover={{   
-                            background: "#444c4c",
+                            background:"#4169e1",
                             transition: "300ms"
                         }}
                     >
