@@ -5,7 +5,6 @@ import { Button,
     Alert,
     AlertIcon,
     Link,
-    Box,
 } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 import { BiCheck, BiBlock } from 'react-icons/bi'
@@ -127,62 +126,79 @@ function Home() {
                         </Button>
                     </Flex>
                     
-
-                    <Text
-                        mt="30px"
-                        fontSize="25px"
-                        fontFamily="Poppins"
-                        color="#2b4242"
-                    >
-                        Load questionary
-                    </Text>
-
-                    <Flex
-                        border="1px solid #7d7e7e"
-                        padding="15px"
-                        borderRadius="4px"
-                        align="center"
-                        boxShadow="rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;"
-                    >
+                    {localStorage.getItem("sendsUser") ? (
+                    <>
                         <Text
-                            fontSize="17px"
+                            mt="30px"
+                            fontSize="25px"
                             fontFamily="Poppins"
-                            fontWeight="bold"
+                            color="#2b4242"
                         >
-                            <Link href="/lastQuestionary"
-                                color="royalblue"
-                                textDecoration="none"
-                                fontWeight="bolder"
-                            >
-                                Last Questionary
-                            </Link>
+                            Load questionary
                         </Text>
-                        <Flex
-                            ml="20px"
-                            width="60px"
-                            justify="space-around"
-                        >
-                            <Flex
-                                align="center"
-                                fontSize="20px"
-                                color="#198754"
-                            >
-                                {localStorage.getItem("acertos")}
-                                <BiCheck />
-                            </Flex>
 
-                            <Flex
-                                align="center"
-                                fontSize="20px"
-                                color="#dc3545"
+                        <Flex
+                            border="1px solid #7d7e7e"
+                            padding="15px"
+                            borderRadius="4px"
+                            align="center"
+                            boxShadow="rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;"
+                        >
+                            <Text
+                                fontSize="17px"
+                                fontFamily="Poppins"
+                                fontWeight="bold"
                             >
-                                {localStorage.getItem("erros")}
-                                <BiBlock 
-                                    fontSize="18px"
-                                />    
+                                <Link href="/lastQuestionary"
+                                    color="royalblue"
+                                    textDecoration="none"
+                                    fontWeight="bolder"
+                                >
+                                    Last Questionary
+                                </Link>
+                            </Text>
+                            <Flex
+                                ml="20px"
+                                width="60px"
+                                justify="space-around"
+                            >
+                                <Flex
+                                    align="center"
+                                    fontSize="20px"
+                                    color="#198754"
+                                >
+                                    {localStorage.getItem("acertos")}
+                                    <BiCheck />
+                                </Flex>
+
+                                <Flex
+                                    align="center"
+                                    fontSize="20px"
+                                    color="#dc3545"
+                                >
+                                    {localStorage.getItem("erros")}
+                                    <BiBlock 
+                                        fontSize="18px"
+                                    />    
+                                </Flex>
                             </Flex>
                         </Flex>
-                    </Flex>
+                    </>
+                        
+                        
+                    ) : (
+                        
+                        <Text
+                            mt="20px"
+                            fontSize="22px"
+                            fontFamily="Poppins"
+
+                        >
+                            Nenhum questionário salvo
+                        </Text>
+                  
+                    )}
+                    
                     
                 </Flex>
             </Flex>
