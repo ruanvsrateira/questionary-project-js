@@ -13,6 +13,7 @@
 <li><a href="https://www.npmjs.com/package/axios">Axios</a></li>
 <li><a href="https://nodejs.org/en/">Api Context</a></li>
 <li><a href="https://www.npmjs.com/package/react-toastify">React-toastify</a></li>
+<li><a href="https://styled-components.com/">Styled Components</a></li>
 
 <br>
 <h2><img style="height: 25px" src="https://github.githubassets.com/images/icons/emoji/unicode/2139.png" />  Pré-requisitos: </h2>
